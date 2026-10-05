@@ -11,11 +11,18 @@ export default function Catalog(){
     const [category, setCategory] =useState("all");
     const { t } = useLanguage();
 
-    useEffect(() => {
+   
+    function loadProducts() {
+        setLoading(true);
+        setError(null);
         getProducts()
         .then((data) => setProducts(data))
         .catch((err) => setError(err.message))
         .finally(() => setLoading(false));
+    }
+
+    useEffect(() =>{
+        loadProducts();
     }, []);
 
     if(loading)
@@ -25,7 +32,7 @@ export default function Catalog(){
         return (
         <div className="glass" style={{padding: 20, textAlign: "center",}}>
         <p>{t("fail")}</p>
-        <button className="btn-primary" onClick={getProducts}>{t("again")}</button>
+        <button className="btn-primary" onClick={loadProducts}>{t("again")}</button>
         </div>
     );
 }
