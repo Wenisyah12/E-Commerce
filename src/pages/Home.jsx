@@ -13,19 +13,16 @@ export default function Home(){
     const {themePref} = useTheme();
     const { t } = useLanguage();
 
-    function loadProducts() {
+    useEffect(() => {
+       loadProducts() 
         setLoading(true);
         setError(null);
         getProducts()
         .then((data) => setProducts(data))
         .catch((err) => setError(err.message))
         .finally(() => setLoading(false));
-    }
-
-    useEffect(() =>{
-        loadProducts();
-    }, []);
-
+    },[]);
+    
     if(loading) {
         return <p>{t("loading")}</p>;
     }

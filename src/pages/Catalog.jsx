@@ -20,8 +20,15 @@ export default function Catalog(){
 
     if(loading)
         return <p>{t("loading")}</p>;
-    if(error)
-        return <p>{t("fail")}</p>
+    
+    if(error){
+        return (
+        <div className="glass" style={{padding: 20, textAlign: "center",}}>
+        <p>{t("fail")}</p>
+        <button className="btn-primary" onClick={getProducts}>{t("again")}</button>
+        </div>
+    );
+}
 
     const categories = ["all", ...new Set(products.map((p) => p.category)) ];
 
