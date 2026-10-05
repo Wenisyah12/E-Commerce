@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useLanguage } from "../context/LanguageContext";
+import { getProductById } from "../data/products";
 
 export default function ProductDetail(){
     const { id } = useParams();
@@ -12,8 +13,7 @@ export default function ProductDetail(){
 
     useEffect(() => {
         setLoading(true);
-        fetch(`https://fakestoreapi.com/products/${id}`)
-        .then((res) => res.json())
+        getProductById(id)
         .then((data) => setProduct(data))
         .finally(() => setLoading (false));
     }, [id]);
